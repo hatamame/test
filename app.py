@@ -27,6 +27,12 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Bootstrap CSSの読み込み
+st.markdown(
+    '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">',
+    unsafe_allow_html=True,
+)
+
 # カスタムCSS
 st.markdown("""
 <style>
