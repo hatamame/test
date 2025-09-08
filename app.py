@@ -158,7 +158,7 @@ def prediction_mode():
         """, unsafe_allow_html=True)
     
     with col2:
-        if st.button("🔄 モデル自動読み込み", type="primary", use_container_width=True):
+        if st.button("🔄 モデル自動読み込み", type="primary", width='stretch'):
             load_model_automatically()
     
     if not st.session_state.model_loaded:
@@ -185,7 +185,7 @@ def prediction_mode():
             race_date = st.date_input("レース日付", value=datetime(2025, 1, 1))
         with col3:
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("🚀 予測実行", type="primary", use_container_width=True, key="predict_id"):
+            if st.button("🚀 予測実行", type="primary", width='stretch', key="predict_id"):
                 execute_prediction(race_id, race_date.strftime('%Y/%m/%d'))
 
     with pred_tabs[1]:
@@ -233,7 +233,7 @@ def prediction_mode():
         
         if st.session_state.manual_horses:
             st.markdown("**追加された馬**")
-            st.dataframe(pd.DataFrame(st.session_state.manual_horses), use_container_width=True)
+            st.dataframe(pd.DataFrame(st.session_state.manual_horses), width='stretch')
             c1, c2 = st.columns(2)
             if c1.button("🚀 手動データで予測実行", type="primary"):
                 race_data = {
@@ -331,7 +331,7 @@ def training_mode():
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        if st.button("🚀 訓練開始", type="primary", use_container_width=True):
+        if st.button("🚀 訓練開始", type="primary", width='stretch'):
             if Path(data_path).exists():
                 execute_training(data_path, n_trials, use_optuna)
             else:
@@ -410,7 +410,7 @@ def show_available_models():
         for info in models_info
     ])
     
-    st.dataframe(model_df, use_container_width=True)
+    st.dataframe(model_df, width='stretch')
     
     # 個別読み込みボタン
     if st.button("🔽 個別モデル選択"):
@@ -537,7 +537,7 @@ def display_prediction_results():
     
     st.dataframe(
         display_df.head(10),
-        use_container_width=True,
+        width='stretch',
         hide_index=True
     )
     
@@ -554,7 +554,7 @@ def display_prediction_results():
             color_discrete_sequence=['#667eea']
         )
         fig.update_layout(height=400)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
     
     with col2:
         st.markdown("### 🎯 上位馬スコア")
@@ -568,7 +568,7 @@ def display_prediction_results():
             color_continuous_scale='Viridis'
         )
         fig.update_layout(height=400)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
     
     # 投資推奨
     st.markdown("### 💰 投資推奨")
@@ -594,7 +594,7 @@ def display_prediction_results():
     # 詳細情報の表示（展開可能）
     with st.expander("📋 詳細情報"):
         st.markdown("#### 🐎 全出走馬データ")
-        st.dataframe(results_df, use_container_width=True)
+        st.dataframe(results_df, width='stretch')
         
         # 結果をJSONでダウンロード可能にする
         json_data = {
@@ -817,7 +817,7 @@ def model_comparison_tab():
             df = pd.DataFrame(comparison_data)
             
             # 比較結果表示
-            st.dataframe(df, use_container_width=True)
+            st.dataframe(df, width='stretch')
             
             # グラフ表示
             fig = px.bar(
@@ -827,7 +827,7 @@ def model_comparison_tab():
                 title="モデル性能比較",
                 barmode='group'
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
 def return_analysis_tab():
     """回収率分析タブ"""
@@ -862,7 +862,7 @@ def return_analysis_tab():
                             title="複勝回収率推移"
                         )
                         fig.add_hline(y=1.0, line_dash="dash", line_color="red")
-                        st.plotly_chart(fig, use_container_width=True)
+                        st.plotly_chart(fig, width='stretch')
                     
                     with col2:
                         st.markdown("#### 🥇 単勝回収率")
@@ -872,7 +872,7 @@ def return_analysis_tab():
                             title="単勝回収率推移"
                         )
                         fig.add_hline(y=1.0, line_dash="dash", line_color="red")
-                        st.plotly_chart(fig, use_container_width=True)
+                        st.plotly_chart(fig, width='stretch')
                     
                     # 最適閾値の表示
                     best_fukusho = fukusho_gain.loc[fukusho_gain['return_rate'].idxmax()]
@@ -933,7 +933,7 @@ def prediction_history_tab():
     
     if history_data:
         df = pd.DataFrame(history_data)
-        st.dataframe(df, use_container_width=True)
+        st.dataframe(df, width='stretch')
     else:
         st.info("有効な予測履歴がありません")
 
@@ -971,7 +971,7 @@ def system_diagnostics_tab():
     
     # 結果表示
     df = pd.DataFrame(checks)
-    st.dataframe(df, use_container_width=True, hide_index=True)
+    st.dataframe(df, width='stretch', hide_index=True)
     
     # メモリ使用量などの追加情報
     st.markdown("#### 💻 システム情報")
